@@ -6,7 +6,9 @@
 - [Logistic Regression](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/logistic_regression.html)
 - [General Statistical Learning Theory](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/general_learning_theory.html)
 - [Regularization and Model Selection Methods](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/regularization_model_selection.html)
+- [Nonlinear Methods and General Additive Models](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/nonlinear_methods.html)
+
 
 
 #### References
-- An Introduction to Statistical Learning - James, Witten, Hastie, Tibshirani
+- An Introduction to Statistical Learning - James, Witten, Hastie, Tibshirani (_The basic approach and most examples shown are from this book_)
