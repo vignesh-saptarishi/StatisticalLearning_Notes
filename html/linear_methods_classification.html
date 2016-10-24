@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>logistic_regression</title>
+<title>linear_methods_classification</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -11751,319 +11751,29 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h2><p>Despite the name, logistic regression is actually a method for classification. In classification problems, the response variable $Y$ is qualitative. One could imagine using linear regression to solve problems of classification by encoding the qualitative responses as quantitative responses. For example, in a 3-class classification problem, we could have $Y = 1, 2, 3$ and use least squares to fit the model. But by encoding this way, we inherently produce a model where the difference between classes 1 and 2 is equal to the difference between classes 2 and 3. This is so because in the response space, the quantitative variables are equally spaced. We also see predicted variables above and below the range, which are harder to interpret.</p>
-<p>Logistic regression is typically used for binary classification problems. Although it can be extended to include multi-class models, Linear Discriminant Analysis tends to be more popular for such cases. We shall consider binary classification problems here.</p>
-<p>In Linear Regression, the hypothesis $\hat{y}$ was modeled as:</p>
-$$\hat{y} = h_{\beta}(x) = \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_pX_p$$<p>For Logistic Regression, we will modify the hypothesis function to accommodate binary classification. A typical choice is the <strong>logistic</strong> (aka <strong>sigmoid</strong>) function:</p>
-$$\hat{y} = h_{\beta}(x) = \frac{1}{1 + exp(-\beta^Tx)}$$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;sigmoid(x)&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x10b2b1048&gt;</pre>
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-AElFTkSuQmCC
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>From the above plot, we can see that the sigmoid tends towards 1 or 0 depending on whether x tends towards positive or negative infinity. Now, how do we fit $\beta$ for this model? From a probabilistic interpretation, let us assume</p>
+<h2 id="Linear-Methods-for-Classification">Linear Methods for Classification<a class="anchor-link" href="#Linear-Methods-for-Classification">&#182;</a></h2><p>This section deals with Logistic Regression and Linear Discriminant Analysis for classification problems.</p>
+<h3 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h3><p>For a binary classification problem with class $0$ or $1$, one could apply regression by least squares. The $X \hat{\beta}$ so obtained in this case can be shown to actually be an estimate of $Pr(Y=1 \mid X)$. But the estimates from linear regression tend to be outside the [0, 1] interval, and hence not useful for a probabilistic interpretation. In Logistic regression, we avoid this problem by applying a function that gives outputs between $0$ to $1$ for all input values - the <strong><em>logit</em></strong> aka <strong><em>sigmoid</em></strong> function.</p>
+<p>Rather than modelling the response variable $Y$ directly, logistic regression models the probability that $Y$ belongs to a particular category, i.e., the conditional probability of $Y$ given the predictors $X$: $p(X) = P(Y=1 \mid X)$. These take values in the interval $[0, 1]$. We could then predict (or assign) an observation to a particular class based on a threshold probability value. For example, we could assign the observation to class $1$ if $p(X) = Pr(Y = 1 \mid X) > 0.5$, and to the other class otherwise. Depending on the application, we might also want to be conservative about our prediction and instead choose lower values like $0.1$ as threshold.</p>
+<p>We model the $p(x)$ as a sigmoid function:</p>
+$$p(X) = \frac{\exp(\beta_0 + \beta_1X)}{1 + \exp(\beta_0 + \beta_1X)}$$<p>A bit of algebra would show that:</p>
+$$\log \frac{p(X)}{1 - p(X)} = \beta_0 + \beta_1X$$<p>$\frac{p(X)}{1 - p(X)}$ is called the <strong><em>odds</em></strong>, and the <strong><em>log-odds</em></strong> (aka logit) is shown to be linear in $X$. For logistic regression, the optimization problem we want to solve is to find estimates for $\beta$ such that the estimated probability $\hat p(x_i)$ corresponds as closely as possible to the original training observation. This approach is known as the <strong><em>maximum likelihood</em></strong> approach. Formally, we seek to find estimates $\beta$ that maximizes the <em>likelihood</em> function:</p>
+$$L(\beta) = \prod_{i:y_i=1}p(x_i) \prod_{i^\prime: y_{i^\prime} = 0}(1 - p(x_{i^\prime}))$$<p>or any monotonic function of $L$, specifically the <strong><em>log-likelihood</em></strong> as is often used for convenience:</p>
 \begin{align}
-&P(y = 1 \mid x; \beta) = h_{\beta}(x)\\
-&P(y = 0 \mid x; \beta) = 1 - h_{\beta}(x)
-\end{align}<p>This can be written as</p>
-$$p(y \mid x; \beta) = (h_{\beta}(x))^y (1 - h_{\beta}(x))^{1-y}$$<p>We can now write likelihood of parameters as</p>
+\ell(\beta)
+&= \log L(\beta)\\
+&= \sum_{i = 1}^{n} \{y_i \log p(x_i) + (1 - y_i)\log(1 - p(x_i))\}\\
+&= \sum_{i = 1}^{n}\{y_i\beta^Tx_i - \log (1 + e^{\beta^Tx_i})\}
+\end{align}<p>The coefficients estimated from logistic regression refer to the change in log-odds of the response and not the response itself.</p>
+<h3 id="Linear-Discriminant-Analysis">Linear Discriminant Analysis<a class="anchor-link" href="#Linear-Discriminant-Analysis">&#182;</a></h3><p>In logistic regression, we directly modeled the conditional distribution $Pr(Y = k \mid X = x)$. In Linear Discriminant Analysis (LDA), we instead model the distribution of predictors $X$ in each class, and then use Bayes's Theorem to compute the estimates for $Pr(Y = k \mid X = x)$.</p>
+<p>We have $K \ge 2$ classes in the response variable. Let $f_k(x)$ be the density function of $X$ in class $k$, and $\pi_k$ be the prior probability of class $k$,  i.e., the probability that a randomly chosen observation comes from the $k$th class, with $\sum_{k=1}^K \pi_k = 1$. Baye's theorem now gives us:</p>
+$$Pr(Y = k \mid X = x) = p_k(x) = \frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_l f_l(x)}$$<p>If we have estimates for $\pi_k$ and $f_k$, we can compute $p_k(x)$. Lets model $f_k(x)$ as a Gaussian:</p>
+$$f_k(x) = \frac{1}{(2 \pi)^{p / 2} \lvert\Sigma\rvert ^{1/2}} \exp \left( \frac{1}{2}(x - \mu)^T\Sigma^{-1}(x - \mu) \right)$$<p>where $p$ is the number of predictors, $\mu$ is the mean of $X$ and $\Sigma = Cov(X)$ with $\Sigma_k = \Sigma$ $\forall k$. In practice, we do not know the parameters of the Gaussian distributions, and hence have to be estimated:</p>
 \begin{align}
-L(\beta) & = p(y \mid x; \beta)\\
-& = \prod_{i = 1}^{n} p(y_i \mid x_i; \beta)\\
-& = \prod_{i - 1}^{n} (h_{\beta}(x_i))^{y_i} (1 - h_{\beta}(x_i))^{1-y_i}
-\end{align}<p>It will be easier to maximize the log likelihood</p>
-\begin{align}
-\ell(\beta) & = \log L(\beta)\\
-& = \sum_{i = 1}^n y_i \log(h(x_i)) + (1 - y_i) \log (1 - h(x_i))
-\end{align}<p>We can now find parameters by maximizing the log likelihood using Gradient Ascent. The gradient of the log likelihood is</p>
-$$\frac{\partial}{\partial \beta_i} \ell(\beta) = (y - h_\beta(x))x_i$$<p>The gradient (and hence, the update rule) seen here is very similar to the one in Linear Regression.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><em>To do: Add example</em></p>
+\hat \pi_k &= \frac{n_k}{n} \\
+\hat \mu_k &= \frac{1}{n_k} \sum_{i:y_i=k}x_i \\
+\hat \Sigma &= \frac{1}{n - K} \sum_{k=1}^K \sum_{i:y_i=k} (x_i - \hat \mu_k) (x_i - \hat \mu_k)^T
+\end{align}<p>where $n_k$ is the number of class-$k$ observations. Once we have all this, we can calculate $p_k(x)$ and assign observation $X = x$ to the class for which $p_k(x)$ is largest. Some algebra will show that, this problem is equivalent to assigning the observation to the class for which the <strong><em>linear discriminant function</em></strong>, $\delta_k$ is largest:</p>
+$$\delta_k(x) = x^T \Sigma^{-1} \mu_k - \frac{1}{2} \mu_k^T \Sigma^{-1} \mu_k + \log \pi_k $$<p>We can see that the discriminant function (and also log-odds) is linear in $X$. LDA makes a lot of assumptions about the distribution of the observations, and hence must be considered carefully before using. If the equality of covariances assumption is not met, one can consider using <strong><em>Quadratic Discriminant Analysis</em></strong> (QDA) which produces quadratic decision boundaries.</p>
 
 </div>
 </div>
