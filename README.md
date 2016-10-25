@@ -8,6 +8,7 @@
 - [Nonlinear Methods and Generalized Additive Models](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/nonlinear_methods.html)
 - [Classification Setting, Bayes Classifier and k-NN](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/classification_bayes_knn.html)
 - [Linear Methods for Classification](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/linear_methods_classification.html)
+- [Resampling Methods: Cross-Validation and Bootstrap](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/resampling_methods_crossval_bootstrap.html)
 
 
 
