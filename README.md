@@ -15,5 +15,5 @@
 
 #### References
 - The Elements of Statistical Learning - Hastie, Tibshirani, Friedman (_The basic approach and most examples shown are from this book_)
-- [ISLR-python by JWarmenhoven](https://github.com/JWarmenhoven/ISLR-python) (_This repository consists python code for examples from ISLR book_)
+- [ISLR-python by JWarmenhoven](https://github.com/JWarmenhoven/ISLR-python) (_This repository contains python code and datasets extracted from R for examples from ISLR book_)
 - An Introduction to Statistical Learning (ISLR) by James, Witten, Hastie, Tibshirani
