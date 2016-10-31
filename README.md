@@ -10,6 +10,8 @@
 - [Linear Methods for Classification](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/linear_methods_classification.html)
 - [Resampling Methods: Cross-Validation and Bootstrap](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/resampling_methods_crossval_bootstrap.html)
 - [Tree-based Methods: Decision Trees](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/tree_methods_decision.html)
+- [Extending Tree-based Methods: Bagging, Random Forest, Boosting](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/tree_methods_extension.html)
+- [Separating Hyperplanes and Support Vector Machines](https://cdn.rawgit.com/vsaptaram/MachineLearning_Notes/master/html/svm_hyperplanes.html)
 
 
 
